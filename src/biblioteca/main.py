@@ -23,7 +23,7 @@ if __name__ == "__main__":
             case 1:
                 titulo = input("Indroduce el titulo de libro: ")
                 autor = input("Indorduce el autor: ")
-                isbn = int(input("Indroduce el ISBN: "))
+                isbn = input("Indroduce el ISBN: ")
                 disponible = int(input("Indroduce la cantidad disponible: "))
                 bilbioteca.agregar_libros(Libro(titulo, autor, isbn, disponible))
             case 2:

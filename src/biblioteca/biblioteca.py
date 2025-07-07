@@ -1,12 +1,17 @@
 from libro import Libro
+from errorPersonalizado import ErrorPersonalizado
 import orjson
+
 
 class Biblioteca:
     def __init__(self):
         self.libros = {}
 
     def agregar_libros(self, libro: Libro):
-        self.libros[libro.isbn] = libro
+        try:
+            self.libros[libro.isbn] = libro
+        except ErrorPersonalizado as e:
+            print(f"Error: {e}")
 
     def buscar_por_titulo(self, titulo: str):
         librosTitulo = []
@@ -46,24 +51,21 @@ class Biblioteca:
 
     def guardar(self, filename: str):
         opciones = orjson.OPT_INDENT_2 | orjson.OPT_NON_STR_KEYS
-        
         datos = {}
-        for clave,valor in self.libros.items():
-            datos[clave]=valor.serializar()
-        
+        for clave, valor in self.libros.items():
+            datos[clave] = valor.serializar()
         with open(filename, "wb") as f:
             f.write(orjson.dumps(datos, option=opciones))
-            
         print("Libro guardado con exito")
-    
+
     def cargar(self, filename: str):
         with open(filename, "rb") as f:
             contenido = f.read()
             libros = orjson.loads(contenido)
-            for item in libros.values():
-                libro = Libro.deserializar(item)
-                self.agregar_libros(libro)
-                
-            
-            print("Libro cargado con exito")
-
+            try:
+                for item in libros.values():
+                    libro = Libro.deserializar(item)
+                    self.agregar_libros(libro)
+                print("Libro cargado con exito")
+            except ErrorPersonalizado as e:
+                print(f"Error: {e}")

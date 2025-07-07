@@ -4,6 +4,7 @@ from libro import Libro
 if __name__ == "__main__":
     operacion = -1
     bilbioteca = Biblioteca()
+    nombreFichero:str = "data/biblioteca.json"
     while operacion != 0:
 
         print("Que quieres hacer?")
@@ -13,6 +14,8 @@ if __name__ == "__main__":
         print("4 - Prestar libro")
         print("5 - Devolver libro")
         print("6 - Listar libro")
+        print("7 - Guardar libros")
+        print("8 - Cargar libros")
         print("0 - Salir")
         operacion = int(input("Indroduce el numero de operacion: "))
 
@@ -20,7 +23,7 @@ if __name__ == "__main__":
             case 1:
                 titulo = input("Indroduce el titulo de libro: ")
                 autor = input("Indorduce el autor: ")
-                isbn = input("Indroduce el ISBN: ")
+                isbn = int(input("Indroduce el ISBN: "))
                 disponible = int(input("Indroduce la cantidad disponible: "))
                 bilbioteca.agregar_libros(Libro(titulo, autor, isbn, disponible))
             case 2:
@@ -41,5 +44,9 @@ if __name__ == "__main__":
                 print(bilbioteca.devolver_libro(isbn))
             case 6:
                 bilbioteca.listar_libros()
+            case 7:
+                bilbioteca.guardar(nombreFichero)
+            case 8:
+                bilbioteca.cargar(nombreFichero)
             case 0:
                 print("Salir de sistema")

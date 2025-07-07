@@ -1,5 +1,5 @@
 from libro import Libro
-
+import orjson
 
 class Biblioteca:
     def __init__(self):
@@ -43,3 +43,27 @@ class Biblioteca:
     def listar_libros(self):
         for libro in self.libros.values():
             print(libro)
+
+    def guardar(self, filename: str):
+        opciones = orjson.OPT_INDENT_2 | orjson.OPT_NON_STR_KEYS
+        
+        datos = {}
+        for clave,valor in self.libros.items():
+            datos[clave]=valor.serializar()
+        
+        with open(filename, "wb") as f:
+            f.write(orjson.dumps(datos, option=opciones))
+            
+        print("Libro guardado con exito")
+    
+    def cargar(self, filename: str):
+        with open(filename, "rb") as f:
+            contenido = f.read()
+            libros = orjson.loads(contenido)
+            for item in libros.values():
+                libro = Libro.deserializar(item)
+                self.agregar_libros(libro)
+                
+            
+            print("Libro cargado con exito")
+

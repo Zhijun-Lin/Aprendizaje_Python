@@ -1,8 +1,8 @@
 from errorPersonalizado import ErrorPersonalizado
+from validaciones import Validaciones
 
 class Libro:
     def __init__(self, titulo: str, autor: str, isbn: str, ejemplares_disponibles: int):
-        Libro.validarLibro(titulo, autor, isbn, ejemplares_disponibles)
         self.titulo = titulo
         self.autor = autor
         self.isbn = isbn
@@ -21,17 +21,9 @@ class Libro:
         
     @staticmethod
     def deserializar(diccionario: dict):
-        Libro.validarLibro(diccionario["titulo"], diccionario["autor"], diccionario["isbn"], diccionario["ejemplares_disponibles"])
+        if not (Validaciones.es_titulo_valido(diccionario["titulo"]) and 
+                Validaciones.es_autor_valido(diccionario["autor"]) and 
+                Validaciones.es_isbn_valido(diccionario["isbn"]) and 
+                Validaciones.es_ejemplares_validos(diccionario["ejemplares_disponibles"])):
+                raise ErrorPersonalizado("El libro contiene datos inválidos")
         return Libro(diccionario["titulo"], diccionario["autor"], diccionario["isbn"], diccionario["ejemplares_disponibles"])
-    
-    @staticmethod
-    def validarLibro( titulo: str, autor: str, isbn: str, ejemplares_disponibles: int):
-        if not isinstance(titulo,str) or not titulo.strip():
-            raise ErrorPersonalizado("El titulo no puede ser vacio o numerico")
-        if not isinstance(autor,str) or not autor.strip():
-            raise ErrorPersonalizado("El autor no puede ser vacio o numerico")
-        if not isinstance(isbn,str) or not isbn.strip() or not isbn.isalnum():
-            raise ErrorPersonalizado("El autor no puede ser vacio y debe de ser alfanumerico sin espacio ")
-        if not isinstance(ejemplares_disponibles,int) or not ejemplares_disponibles>0:
-            raise ErrorPersonalizado("El ejemplares disponibles debe ser mayor que 0")
-        

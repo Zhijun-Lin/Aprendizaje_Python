@@ -22,3 +22,31 @@ Aumenta en uno la cantidad de ejemplares disponibles. Devuelve `True` si la devo
 
 ### `listar_libros()`
 Muestra todos los libros disponibles en la biblioteca.
+
+### `guardar(filename: str)` 
+
+Guarda todos los libros en archivo JSON.
+### `cargar(filename: str)` 
+
+Carga libros desde archivo JSON.
+
+## Tests
+Comando `pytest` para ejecutar todo los pruebas bajo fichero tests.
+
+### `test_prestamo_devolucion.py` 
+
+Contiene caso de prueba cuando, prestar libro exitoso, fallido por sin ejemplares, fallido por inexistencia de libro. 
+
+### `test_entrada_parametros.py` 
+
+Contiene parametrizacion casos de prueba para reutilizar codigo de validacion para comprobar clases validas e invalidas.
+
+### `test_cargar_guardar_json.py` 
+
+Test para cargar y guardar libros en un archivo JSON.
+
+## Requisitos Técnicos
+- Python 3.8+
+- Dependencias:
+  - `orjson` (para serialización eficiente)
+  - `pytest` (para ejecutar tests)

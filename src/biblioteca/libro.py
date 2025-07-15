@@ -1,5 +1,5 @@
-from errorPersonalizado import ErrorPersonalizado
-from validaciones import Validaciones
+from biblioteca.errorPersonalizado import ErrorPersonalizado
+from biblioteca.validaciones import Validaciones
 
 class Libro:
     def __init__(self, titulo: str, autor: str, isbn: str, ejemplares_disponibles: int):

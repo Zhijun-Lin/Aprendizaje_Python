@@ -1,6 +1,6 @@
-from libro import Libro
-from validaciones import Validaciones
-from errorPersonalizado import ErrorPersonalizado
+from biblioteca.libro import Libro
+from biblioteca.validaciones import Validaciones
+from biblioteca.errorPersonalizado import ErrorPersonalizado
 import orjson
 
 
